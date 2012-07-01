@@ -1,29 +1,5 @@
 require 'rubygems'
 require 'sinatra'
-require 'sqlite3'
-require 'dm-core'
-require 'dm-timestamps'
-require 'dm-migrations'
-
-configure do
-  # Use Heroku or local Sqlite
-  DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/inaudio.db")
-end
-
-class Audio
-
-  include DataMapper::Resource
-
-  property :id,           Serial
-  property :login,        String
-  property :filename,     String
-  property :is_active,    Boolean
-  property :created_at,   DateTime
-  property :updated_at,   DateTime
-
-end
-
-DataMapper.auto_upgrade!
 
 get '/test' do
   headers "X-Frame-Options" => "GOFORIT"
