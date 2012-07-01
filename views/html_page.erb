@@ -1,0 +1,76 @@
+<html>
+  <head>
+    <script src="http://code.jquery.com/jquery-1.7.2.js"></script>
+    <script type="text/javascript" src="http://localhost:9393/javascripts/record.js"></script>
+    <script type="text/javascript" src="http://localhost:9393/javascripts/jRecorder/jRecorder.js"></script>
+  </head>
+  <body>
+    <input type="button" value="<%= @profile_id %>" id="user_id" style="display:none;"></input>
+    <% if @is_owner %>
+      <input type="button" value="record" id="record"> </input>
+      <input type="button" value="replay" id="replay"> </input>
+      <input type="button" value="save" id="save"></input>
+    <% end %>
+    <% if @present %>
+      <input type="button" value="play" id="play"> </input>
+    <% end %>
+  </body>
+  <!-- include SM2 library (see builds for optimized versions) -->
+<script type="text/javascript" src="/javascripts/soundmanager2.js"></script>
+
+<!-- configure SM2 for your use -->
+<script type="text/javascript">
+
+soundManager.setup({
+
+  // location: path to SWF files, as needed (SWF file name is appended later.)
+  debugMode: true,
+  flashLoadTimeout: 10000,
+  wmode: 'transparent',
+  allowScriptAccess: 'always',
+  useHTML5Audio: true,
+  preferFlash: false,
+  flashVersion: 9,
+
+  url: '/javascripts/swf/',
+
+  // optional: version of SM2 flash audio API to use (8 or 9; default is 8 if omitted, OK for most use cases.)
+  // flashVersion: 9,
+
+  // use soundmanager2-nodebug-jsmin.js, or disable debug mode (enabled by default) after development/testing
+  // debugMode: false,
+
+  // good to go: the onready() callback
+
+  onready: function() {
+
+    // SM2 has started - now you can create and play sounds!
+
+    var mySound = soundManager.createSound({
+      id: 'aSound',
+      url: "/audio/<%= @profile_id %>.mp3",
+      autoLoad: true,
+      onload: function() {
+    alert('The sound '+this.id+' loaded!');
+  }
+      // onload: function() { console.log('sound loaded!', this); }
+      // other options here..
+    });
+
+    $('#play').click(function(){mySound.play();});
+
+  },
+
+  // optional: ontimeout() callback for handling start-up failure
+
+  ontimeout: function() {
+
+    // Hrmm, SM2 could not start. Missing SWF? Flash blocked? Show an error, etc.?
+    // See the flashblock demo when you want to start getting fancy.
+
+  }
+
+});
+
+</script>
+</html>
