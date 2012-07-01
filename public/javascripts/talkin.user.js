@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name speak my name
+// @name talkIn
 // @namespace women's hackday
 // @description linkedin page modification
 // @include http://www.linkedin.com/profile/view?id*
