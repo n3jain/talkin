@@ -7,7 +7,7 @@
   <body>
     <input type="hidden" value="<%= @profile_id %>" id="user_id"></input>
     <input type="hidden" value="<%= @filename %>" id="file_name"></input>
-    <% if @is_owner %>
+    <% if @is_owner == 'false' %>
       <input type="button" value="" id="record" style="background: url(&quot;/images/abled-mike.png&quot;) no-repeat scroll 0pt 0pt transparent; border: medium none; width: 32px; height: 32px;margin-left: 195px;"> </input>
       <input type="button" value="" id="replay" style="background: url(&quot;/images/replay-abled.png&quot;) no-repeat scroll 0pt 0pt transparent; border: medium none; width: 32px; height: 32px;margin-left: 14px;"> </input>
       <input type="button" value="" id="save" style="background: url(&quot;/images/save-abled.png&quot;) no-repeat scroll 0pt 0pt transparent; border: medium none; width: 32px; height: 32px;margin-left: 14px;"></input>
