@@ -5,72 +5,41 @@
     <script type="text/javascript" src="/javascripts/jRecorder/jRecorder.js"></script>
   </head>
   <body>
-    <input type="button" value="<%= @profile_id %>" id="user_id" style="display:none;"></input>
+    <input type="hidden" value="<%= @profile_id %>" id="user_id"></input>
+    <input type="hidden" value="<%= @filename %>" id="file_name"></input>
     <% if @is_owner %>
       <input type="button" value="" id="record" style="background: url(&quot;/images/abled-mike.png&quot;) no-repeat scroll 0pt 0pt transparent; border: medium none; width: 32px; height: 32px;margin-left: 195px;"> </input>
       <input type="button" value="" id="replay" style="background: url(&quot;/images/replay-abled.png&quot;) no-repeat scroll 0pt 0pt transparent; border: medium none; width: 32px; height: 32px;margin-left: 14px;"> </input>
       <input type="button" value="" id="save" style="background: url(&quot;/images/save-abled.png&quot;) no-repeat scroll 0pt 0pt transparent; border: medium none; width: 32px; height: 32px;margin-left: 14px;"></input>
     <% end %>
     <% if @present %>
+      <script type="text/javascript" src="/javascripts/soundmanager2.js"></script>
+      <script type="text/javascript">
+        soundManager.setup({
+          debugMode: true,
+          flashLoadTimeout: 10000,
+          wmode: 'transparent',
+          allowScriptAccess: 'always',
+          useHTML5Audio: true,
+          preferFlash: false,
+          flashVersion: 9,
+          url: '/javascripts/swf/',
+          onready: function() {
+          var mySound = soundManager.createSound({
+          id: 'aSound',
+          url: "/audio/<%= @profile_id %>.mp3",
+          autoLoad: true,
+          onload: function() {
+          console.log('The sound '+this.id+' loaded!');
+          }
+          });
+          $('#play').click(function(){mySound.play();});
+          },
+          ontimeout: function() {
+           }
+        });
+      </script>
       <input type="button" value="" id="play" style="background: url(&quot;/images/play.png&quot;) no-repeat scroll 0pt 0pt transparent; border: medium none; width: 32px; height: 32px;margin-left: 14px;"> </input>
     <% end %>
   </body>
-  <!-- include SM2 library (see builds for optimized versions) -->
-<script type="text/javascript" src="/javascripts/soundmanager2.js"></script>
-
-<!-- configure SM2 for your use -->
-<script type="text/javascript">
-
-soundManager.setup({
-
-  // location: path to SWF files, as needed (SWF file name is appended later.)
-  debugMode: true,
-  flashLoadTimeout: 10000,
-  wmode: 'transparent',
-  allowScriptAccess: 'always',
-  useHTML5Audio: true,
-  preferFlash: false,
-  flashVersion: 9,
-
-  url: '/javascripts/swf/',
-
-  // optional: version of SM2 flash audio API to use (8 or 9; default is 8 if omitted, OK for most use cases.)
-  // flashVersion: 9,
-
-  // use soundmanager2-nodebug-jsmin.js, or disable debug mode (enabled by default) after development/testing
-  // debugMode: false,
-
-  // good to go: the onready() callback
-
-  onready: function() {
-
-    // SM2 has started - now you can create and play sounds!
-
-    var mySound = soundManager.createSound({
-      id: 'aSound',
-      url: "/audio/<%= @profile_id %>.mp3",
-      autoLoad: true,
-      onload: function() {
-    console.log('The sound '+this.id+' loaded!');
-  }
-      // onload: function() { console.log('sound loaded!', this); }
-      // other options here..
-    });
-
-    $('#play').click(function(){mySound.play();});
-
-  },
-
-  // optional: ontimeout() callback for handling start-up failure
-
-  ontimeout: function() {
-
-    // Hrmm, SM2 could not start. Missing SWF? Flash blocked? Show an error, etc.?
-    // See the flashblock demo when you want to start getting fancy.
-
-  }
-
-});
-
-</script>
 </html>
