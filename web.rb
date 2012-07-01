@@ -1,9 +1,8 @@
 require 'rubygems'
 require 'sinatra'
 
-get '/test' do
-  headers "X-Frame-Options" => "GOFORIT"
-  erb :html_page
+get '/' do
+  erb :index
 end
 
 get '/iframe_handler/:profile_id/:is_owner' do
@@ -15,21 +14,6 @@ get '/iframe_handler/:profile_id/:is_owner' do
   erb :html_page
 end
 
-get '/view/:name' do
-  @name = params[:name]
-  erb :profile_view
-end
-
-get '/view/edit_profile/:name' do
-  @name = params[:name]
-  erb :edit_profile
-end
-
-get '/view/edit_basic_info/:name' do
-  @name = params[:name]
-  erb :edit_basic_info
-end
-
 post '/save/:name' do
   @filename = "#{Dir.pwd}/public/audio/#{params[:name]}.mp3"
   puts @filename
@@ -37,12 +21,4 @@ post '/save/:name' do
   raw_data = request.env["rack.input"].read
   f.puts(raw_data)
   f.close
-end
-
-post '/profile/edit-basic-info-submit' do
-  audio = Audio.new
-  audio[:login] = @name
-  audio[:filename] = @filename
-  audio[:is_active] = true
-  audio.save
 end

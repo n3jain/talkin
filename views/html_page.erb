@@ -1,8 +1,8 @@
 <html>
   <head>
     <script src="http://code.jquery.com/jquery-1.7.2.js"></script>
-    <script type="text/javascript" src="http://localhost:9393/javascripts/record.js"></script>
-    <script type="text/javascript" src="http://localhost:9393/javascripts/jRecorder/jRecorder.js"></script>
+    <script type="text/javascript" src="/javascripts/record.js"></script>
+    <script type="text/javascript" src="/javascripts/jRecorder/jRecorder.js"></script>
   </head>
   <body>
     <input type="button" value="<%= @profile_id %>" id="user_id" style="display:none;"></input>
@@ -51,7 +51,7 @@ soundManager.setup({
       url: "/audio/<%= @profile_id %>.mp3",
       autoLoad: true,
       onload: function() {
-    alert('The sound '+this.id+' loaded!');
+    console.log('The sound '+this.id+' loaded!');
   }
       // onload: function() { console.log('sound loaded!', this); }
       // other options here..
